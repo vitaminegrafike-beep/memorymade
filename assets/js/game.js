@@ -314,16 +314,34 @@
     }
 
     /* ════════════════════════════════════════════
-       SOUNDS — Web Audio API (no external files)
+       SOUNDS — MP3 files + Web Audio API (win)
        ════════════════════════════════════════════ */
+
+    /* Preload MP3s so playback is instant on first trigger */
+    const _sfx = {
+        match: new Audio('assets/audio/positive.mp3'),
+        wrong: new Audio('assets/audio/negative.mp3'),
+    };
+    _sfx.match.load();
+    _sfx.wrong.load();
+
+    function playSound(audio) {
+        audio.currentTime = 0;
+        audio.play().catch(() => {});   // ignore autoplay policy errors silently
+    }
+
+    function playMatch() { playSound(_sfx.match); }
+    function playWrong()  { playSound(_sfx.wrong); }
+
+    /* Win fanfare — kept as Web Audio (no file needed) */
     let audioCtx = null;
     function getCtx() {
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         return audioCtx;
     }
     function tone(freq, type, vol, start, dur) {
-        const ctx = getCtx();
-        const osc = ctx.createOscillator();
+        const ctx  = getCtx();
+        const osc  = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.connect(gain);
         gain.connect(ctx.destination);
@@ -335,21 +353,7 @@
         osc.start(ctx.currentTime + start);
         osc.stop(ctx.currentTime + start + dur + 0.05);
     }
-    function playMatch() {
-        // Cheerful ascending arpeggio
-        tone(523,  'sine', 0.35, 0,    0.12);
-        tone(659,  'sine', 0.35, 0.09, 0.12);
-        tone(784,  'sine', 0.35, 0.18, 0.15);
-        tone(1047, 'sine', 0.3,  0.27, 0.28);
-    }
-    function playWrong() {
-        // Descending low buzz
-        tone(220, 'sawtooth', 0.28, 0,    0.09);
-        tone(185, 'sawtooth', 0.28, 0.08, 0.10);
-        tone(150, 'square',   0.18, 0.17, 0.18);
-    }
     function playWin() {
-        // Victory fanfare
         [523, 659, 784, 1047].forEach((f, i) => tone(f, 'sine', 0.3, i * 0.08, 0.18));
         tone(1047, 'sine', 0.35, 0.38, 0.55);
     }
