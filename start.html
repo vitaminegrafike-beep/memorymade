@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORYMADE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/start.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="start-page">
+    <div class="start-card panel">
+
+        <!-- Brand -->
+        <div class="brand">
+            <div class="brand-glow-ring">
+                <div class="brand-shield">
+                    <span class="brand-shield-mm">MM</span>
+                    <span class="brand-shield-sub">Memory</span>
+                </div>
+            </div>
+            <div class="brand-wordmark">
+                <span class="brand-name">Memorymade</span>
+                <span class="brand-tagline">Icebreaker · Team Game</span>
+            </div>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="headline">Riconosci i tuoi<br><em>colleghi?</em></h1>
+        <p class="sub">Abbina tutte le coppie di foto prima che scada il timer. Metti alla prova la tua memoria!</p>
+
+        <!-- Meta pills -->
+        <div class="start-meta">
+            <span class="meta-pill"><span class="pill-emoji">🖼️</span> 24 colleghi</span>
+            <span class="meta-pill"><span class="pill-emoji">🃏</span> 48 carte</span>
+            <span class="meta-pill"><span class="pill-emoji">⏱️</span> 2 minuti</span>
+        </div>
+
+        <!-- Name input -->
+        <div class="form-group">
+            <label class="field-label" for="player-name">Il tuo nome</label>
+            <input
+                id="player-name"
+                class="field-input"
+                type="text"
+                placeholder="Es. Mario Rossi"
+                maxlength="30"
+                autocomplete="off"
+                autocapitalize="words"
+                spellcheck="false"
+            >
+        </div>
+
+        <!-- CTA -->
+        <button id="btn-start" class="btn btn-play btn-full" disabled>
+            🎮 Inizia il gioco
+        </button>
+
+        <!-- Classifica link -->
+        <div class="start-footer">
+            <button class="link-classifica" onclick="window.location.href='classifica.html'">
+                🏆 Vedi la classifica
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/start.js"></script>
+</body>
+</html>

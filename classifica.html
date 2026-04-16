@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORYMADE — Classifica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/classifica.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="classifica-page">
+    <div class="classifica-card panel">
+
+        <!-- Header -->
+        <div class="classifica-header">
+            <span class="classifica-brand-mark">MM</span>
+            <div class="classifica-title-wrap">
+                <div class="classifica-title">🏆 Classifica</div>
+                <div class="classifica-sub">Tempi migliori · tutti i giocatori</div>
+            </div>
+        </div>
+
+        <!-- Summary stats -->
+        <div class="classifica-summary">
+            <div class="summary-box">
+                <div class="summary-val" id="stat-partite">0</div>
+                <div class="summary-lbl">Partite</div>
+            </div>
+            <div class="summary-box">
+                <div class="summary-val" id="stat-record">—</div>
+                <div class="summary-lbl">Record</div>
+            </div>
+            <div class="summary-box">
+                <div class="summary-val" id="stat-completati">0</div>
+                <div class="summary-lbl">Completate</div>
+            </div>
+        </div>
+
+        <!-- Leaderboard list -->
+        <ul class="classifica-list" id="classifica-list"></ul>
+
+        <!-- Actions -->
+        <div class="classifica-actions">
+            <button class="btn btn-play btn-full" onclick="window.location.href='start.html'">
+                🎮 Gioca ora
+            </button>
+            <button id="btn-reset" class="btn btn-ghost btn-full">
+                🗑️ Azzera classifica
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/classifica.js"></script>
+</body>
+</html>

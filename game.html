@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORYMADE — Gioca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/game.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<!-- ═══ Loading overlay (shown until all images are preloaded) ═══ -->
+<div class="loading-overlay" id="loading-overlay">
+    <span class="loading-brand">Memorymade</span>
+    <div class="loading-bar-track">
+        <div class="loading-bar-fill" id="load-bar-fill"></div>
+    </div>
+    <span class="loading-text" id="load-text">Caricamento…</span>
+</div>
+
+<div class="game-page">
+
+    <!-- ═══ Header ═══ -->
+    <header class="game-header">
+
+        <div class="game-brand">
+            <span class="game-brand-mark">MM</span>
+            <span class="game-brand-name">Memorymade</span>
+        </div>
+
+        <div class="game-stats">
+            <!-- Timer -->
+            <div class="stat-chip" id="timer-chip">
+                <span class="stat-icon">⏱</span>
+                <span class="stat-chip-val" id="timer-val">2:00</span>
+                <span class="stat-chip-lbl">Tempo</span>
+            </div>
+
+            <!-- Coppie trovate -->
+            <div class="stat-chip score-chip">
+                <span class="stat-icon">✓</span>
+                <span class="stat-chip-val" id="matched-val">0/24</span>
+                <span class="stat-chip-lbl">Coppie</span>
+            </div>
+
+            <!-- Tentativi -->
+            <div class="stat-chip">
+                <span class="stat-chip-val" id="attempts-val">0</span>
+                <span class="stat-chip-lbl">Tentativi</span>
+            </div>
+        </div>
+
+        <!-- Timer bar -->
+        <div class="timer-bar-track">
+            <div class="timer-bar-fill" id="timer-bar-fill"></div>
+        </div>
+
+    </header>
+
+    <!-- ═══ Board ═══ -->
+    <main class="game-main">
+        <div class="game-grid" id="game-grid">
+            <!-- 46 cards injected by game.js -->
+        </div>
+    </main>
+
+</div>
+
+<script>sessionStorage.setItem("memorymadePlayer","Anteprima");</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/game.js"></script>
+</body>
+</html>

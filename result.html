@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORYMADE — Risultati</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/result.css">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="result-page">
+    <div class="result-card panel">
+
+        <!-- Brand -->
+        <div class="result-brand">
+            <span class="result-brand-mark">MM</span>
+            <span class="result-brand-name">Memorymade</span>
+        </div>
+
+        <!-- Stars -->
+        <div class="result-stars" id="result-stars"></div>
+
+        <!-- Hero -->
+        <div class="result-hero">
+            <span class="result-emoji" id="result-emoji">🎉</span>
+            <div class="result-score"     id="result-score">0/24</div>
+            <div class="result-score-sub">coppie trovate</div>
+            <div class="result-player"    id="result-player"></div>
+            <span class="status-badge"    id="status-badge">—</span>
+        </div>
+
+        <!-- Stats -->
+        <div class="result-stats">
+            <div class="stat-box">
+                <div class="stat-box-val" id="stat-time">—</div>
+                <div class="stat-box-lbl">Tempo</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-val" id="stat-attempts">—</div>
+                <div class="stat-box-lbl">Tentativi</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-val" id="stat-accuracy">—</div>
+                <div class="stat-box-lbl">Precisione</div>
+            </div>
+        </div>
+
+        <!-- Message -->
+        <p class="result-message" id="result-message"></p>
+
+        <!-- Actions -->
+        <div class="result-actions">
+            <button id="btn-replay" class="btn btn-play btn-full">
+                🔄 Rigioca
+            </button>
+            <button id="btn-classifica" class="btn btn-gold btn-full">
+                🏆 Vedi classifica
+            </button>
+            <button id="btn-change-player" class="btn btn-ghost btn-full">
+                Cambia giocatore
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script>sessionStorage.setItem("memorymadeResult",JSON.stringify({playerName:"Anteprima",duration:87,attempts:22,matched:18,total:24,status:"completed",date:"16/04/2026"}));</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/result.js"></script>
+</body>
+</html>
