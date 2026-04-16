@@ -12,7 +12,7 @@
 .loading-overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, #130828 0%, #0A0514 100%);
+    background: linear-gradient(180deg, #075F91 0%, #030608 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,7 +63,7 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: linear-gradient(180deg, rgba(30,16,64,.98) 0%, rgba(19,8,40,.96) 100%);
+    background: linear-gradient(180deg, rgba(7,80,120,.98) 0%, rgba(3,10,20,.96) 100%);
     border-bottom: 1px solid rgba(201,168,76,.25);
     padding: 0 20px;
     height: 58px;
@@ -80,21 +80,14 @@
     flex-shrink: 0;
 }
 
+/* Brand mark uses shared .brand-mark from base.css */
 .game-brand-mark {
     width: 32px;
     height: 32px;
-    background: linear-gradient(180deg, #FFD966 0%, #C9870A 100%);
-    border-radius: 8px;
-    font-size: .72rem;
-    font-weight: 900;
-    color: #3A1F00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 0 #6B4400;
-    flex-shrink: 0;
-    letter-spacing: .04em;
+    border-radius: 7px;
+    box-shadow: 0 2px 0 rgba(0,0,0,.3), inset 0 0.5px 0 rgba(255,255,255,.38), inset 0 -0.5px 0 rgba(0,0,0,.2);
 }
+.game-brand-mark::after { display: none; }
 
 .game-brand-name {
     font-size: .6rem;
@@ -243,44 +236,23 @@
     overflow: hidden;
 }
 
-/* BACK — rich burgundy with gold border */
+/* BACK — Figma design node 22:6 */
 .card-back {
-    background: linear-gradient(160deg, var(--card-back-top) 0%, var(--card-back-bot) 100%);
-    border: 2.5px solid var(--gold-border);
+    background: linear-gradient(159.99deg, var(--card-back-top) 8.49%, var(--card-back-bot) 91.51%);
+    border: 2px solid var(--gold-border);
     box-shadow: inset 0 0 0 2px rgba(255,200,80,.08);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Inner decorative frame */
-.card-back::before {
-    content: '';
-    position: absolute;
-    inset: 5px;
-    border: 1px solid rgba(201,168,76,.2);
-    border-radius: calc(var(--r-card) - 4px);
-}
-
-/* Cross-hatch subtle pattern */
-.card-back::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        repeating-linear-gradient(45deg,  transparent, transparent 8px, rgba(0,0,0,.08) 8px, rgba(0,0,0,.08) 9px),
-        repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(0,0,0,.08) 8px, rgba(0,0,0,.08) 9px);
-    border-radius: var(--r-card);
-}
-
-.card-back-monogram {
-    position: relative;
-    z-index: 1;
-    font-size: 1.1rem;
-    font-weight: 900;
-    color: rgba(201,168,76,.35);
-    letter-spacing: .1em;
-    text-shadow: 0 1px 3px rgba(0,0,0,.4);
+.card-back-symbol {
+    width: 45%;
+    height: 45%;
+    object-fit: contain;
+    opacity: .3;
+    pointer-events: none;
+    display: block;
 }
 
 /* FRONT — clean with golden border */
@@ -363,5 +335,5 @@
     .stat-chip { padding: 4px 8px; }
     .stat-chip-val { font-size: .85rem; min-width: 20px; }
     .game-main { padding: 14px 10px 24px; }
-    .card-back-monogram { font-size: .85rem; }
+    .card-back-symbol { width: 42%; height: 42%; }
 }

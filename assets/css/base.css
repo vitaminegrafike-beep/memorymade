@@ -7,9 +7,9 @@
 
 :root {
     /* Background layers */
-    --bg-deep:      #0A0514;
-    --bg-mid:       #160B30;
-    --bg-panel:     #1E1040;
+    --bg-deep:      #030608;
+    --bg-mid:       #075F91;
+    --bg-panel:     #1E8AC6;
 
     /* Gold palette */
     --gold:         #F5C842;
@@ -18,9 +18,15 @@
     --gold-light:   #FFE680;
     --gold-rgb:     245, 200, 66;
 
-    /* Card back */
-    --card-back-top: #7A1515;
-    --card-back-bot: #4A0B0B;
+    /* Brand mark — Figma blue gradient */
+    --brand-mark-top: #1F8ECB;
+    --brand-mark-mid1: #1473A7;
+    --brand-mark-mid2: #0D5E8B;
+    --brand-mark-bot: #09527C;
+
+    /* Card back — Figma node 22:6 */
+    --card-back-top: #1F8ECB;
+    --card-back-bot: #08517A;
 
     /* Greens (CTA) */
     --green:        #3ED44A;
@@ -56,8 +62,8 @@ html { scroll-behavior: smooth; }
 body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
     background:
-        radial-gradient(ellipse 120% 60% at 50% -10%, #3D1A6E 0%, transparent 70%),
-        linear-gradient(180deg, #130828 0%, #0A0514 100%);
+        radial-gradient(ellipse 120% 60% at 50% -10%, rgba(61,26,110,.9) 0%, rgba(46,20,83,.5) 30%, transparent 70%),
+        linear-gradient(180deg, #075F91 0%, #030608 100%);
     background-attachment: fixed;
     color: var(--text);
     min-height: 100vh;
@@ -66,7 +72,7 @@ body {
 
 /* ── Ornate Panel ── */
 .panel {
-    background: linear-gradient(180deg, #221052 0%, #130828 100%);
+    background: linear-gradient(180deg, #1E8AC6 0%, #130828 100%);
     border: 2px solid var(--gold-border);
     border-radius: var(--r-xl);
     box-shadow:
@@ -84,6 +90,35 @@ body {
     border: 1px solid rgba(201,168,76,.12);
     border-radius: calc(var(--r-xl) - 5px);
     pointer-events: none;
+}
+
+/* ── Brand Mark (shared blue gradient block) ── */
+.brand-mark {
+    position: relative;
+    background: linear-gradient(159.99deg, var(--brand-mark-top) 8.49%, var(--brand-mark-mid1) 37.55%, var(--brand-mark-mid2) 66.61%, var(--brand-mark-bot) 91.51%);
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.38), inset 0 -2px 0 rgba(0,0,0,.2);
+    flex-shrink: 0;
+}
+.brand-mark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.38), inset 0 -2px 0 rgba(0,0,0,.2);
+    pointer-events: none;
+}
+.brand-mark img {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+    opacity: .9;
+    pointer-events: none;
+    display: block;
 }
 
 /* ── Game-style Buttons ── */

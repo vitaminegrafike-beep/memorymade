@@ -14,13 +14,13 @@
 
 /* ── Card ── */
 .start-card {
-    padding: 52px 44px 44px;
+    padding: 46px 44px 44px;
     width: 100%;
     max-width: 460px;
     text-align: center;
 }
 
-/* ── Logo mark ── */
+/* ── Brand ── */
 .brand {
     display: inline-flex;
     flex-direction: column;
@@ -40,78 +40,27 @@
 .brand-glow-ring::before {
     content: '';
     position: absolute;
-    inset: -12px;
-    border-radius: 30px;
-    background: radial-gradient(circle, rgba(245,200,66,.25) 0%, transparent 70%);
+    inset: -14px;
+    border-radius: 42px;
+    background: radial-gradient(circle, rgba(255,245,217,.4) 0%, transparent 70%);
     animation: ringPulse 2.4s ease-in-out infinite;
 }
 
 @keyframes ringPulse {
-    0%, 100% { opacity: .6; transform: scale(1); }
+    0%, 100% { opacity: .5; transform: scale(1); }
     50%       { opacity: 1;  transform: scale(1.06); }
 }
 
-.brand-shield {
-    position: relative;
+/* Large brand mark on start page */
+.brand-mark-lg {
     width: 132px;
     height: 132px;
-    background: linear-gradient(160deg, #FFE870 0%, #F5C842 35%, #C9870A 70%, #8B5506 100%);
     border-radius: 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
     box-shadow:
-        0 12px 0 #5C3600,
-        0 16px 48px rgba(0,0,0,.75),
-        0 0 60px rgba(245,200,66,.5),
+        0 16px 48px rgba(133,133,133,.75),
+        0 0 60px rgba(255,245,217,.5),
         inset 0 2px 0 rgba(255,255,255,.38),
         inset 0 -2px 0 rgba(0,0,0,.2);
-}
-
-/* Inner decorative border */
-.brand-shield::before {
-    content: '';
-    position: absolute;
-    inset: 7px;
-    border: 2px solid rgba(255,255,255,.22);
-    border-radius: 17px;
-}
-
-/* Corner sparkle */
-.brand-shield::after {
-    content: '✦';
-    position: absolute;
-    top: 9px;
-    right: 11px;
-    font-size: .75rem;
-    color: rgba(255,255,255,.45);
-    text-shadow: 0 0 6px rgba(255,255,255,.6);
-}
-
-.brand-shield-mm {
-    font-size: 2.9rem;
-    font-weight: 900;
-    color: #3A1F00;
-    text-shadow:
-        0 2px 0 rgba(255,255,255,.3),
-        0 -1px 0 rgba(0,0,0,.25);
-    letter-spacing: .06em;
-    line-height: 1;
-    position: relative;
-    z-index: 1;
-}
-
-.brand-shield-sub {
-    font-size: .52rem;
-    font-weight: 800;
-    color: rgba(58,31,0,.6);
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 1;
-    margin-top: 1px;
 }
 
 /* Wordmark */
@@ -123,13 +72,12 @@
 }
 
 .brand-name {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
     font-weight: 900;
-    letter-spacing: .22em;
+    letter-spacing: .207em;
     color: var(--gold);
     text-transform: uppercase;
     text-shadow:
-        0 2px 0 var(--gold-dark),
         0 0 28px rgba(245,200,66,.6),
         0 0 60px rgba(245,200,66,.25);
     line-height: 1;
@@ -141,7 +89,6 @@
     letter-spacing: .12em;
     color: rgba(255,247,230,.65);
     text-transform: uppercase;
-    text-shadow: 0 1px 4px rgba(0,0,0,.5);
 }
 
 /* ── Headline ── */
@@ -150,21 +97,20 @@
     font-weight: 900;
     line-height: 1.15;
     color: var(--text);
-    text-shadow: 0 2px 12px rgba(0,0,0,.6);
+    text-shadow: 0 2px 12px rgba(0,0,0,.4);
     margin-bottom: 10px;
 }
 
 .headline em {
     color: var(--gold);
     font-style: normal;
-    text-shadow: var(--glow-gold);
 }
 
 .sub {
     font-size: .88rem;
-    color: var(--text-muted);
+    color: rgba(255,255,255,.85);
     line-height: 1.6;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 
 /* ── Stats pills row ── */
@@ -174,7 +120,7 @@
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 36px;
+    margin-bottom: 32px;
 }
 
 .meta-pill {
@@ -184,7 +130,7 @@
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(201,168,76,.25);
     border-radius: 100px;
-    padding: 7px 16px;
+    padding: 7px 14px;
     font-size: .84rem;
     font-weight: 700;
     color: var(--gold);
@@ -193,7 +139,7 @@
 }
 
 .meta-pill .pill-emoji {
-    font-size: 1.1rem;   /* ~30% bigger than the text */
+    font-size: 1.1rem;
     line-height: 1;
 }
 
@@ -209,7 +155,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .13em;
-    color: var(--text-muted);
+    color: #e1e1e1;
     margin-bottom: 8px;
 }
 
@@ -218,7 +164,7 @@
     padding: 14px 20px;
     font-family: inherit;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text);
     background: rgba(255,255,255,.06);
     border: 2px solid rgba(201,168,76,.25);
@@ -227,7 +173,7 @@
     transition: border-color .2s, box-shadow .2s, background .2s;
     caret-color: var(--gold);
 }
-.field-input::placeholder { color: var(--text-dim); font-weight: 400; }
+.field-input::placeholder { color: #777; font-weight: 400; }
 .field-input:focus {
     border-color: var(--gold-border);
     box-shadow: 0 0 0 3px rgba(var(--gold-rgb), .18), var(--glow-gold);
@@ -236,7 +182,7 @@
 
 /* ── Classifica link ── */
 .start-footer {
-    margin-top: 20px;
+    margin-top: 16px;
     display: flex;
     justify-content: center;
 }
@@ -253,11 +199,11 @@
     border: none;
     font-family: inherit;
     text-decoration: underline;
-    text-decoration-color: transparent;
     transition: color .2s;
 }
 .link-classifica:hover { color: var(--gold); }
 
 @media (max-width: 480px) {
     .start-card { padding: 36px 20px 32px; }
+    .brand-mark-lg { width: 100px; height: 100px; border-radius: 22px; }
 }

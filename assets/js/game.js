@@ -96,7 +96,7 @@
             el.innerHTML = `
                 <div class="card-inner">
                     <div class="card-back">
-                        <span class="card-back-monogram">MM</span>
+                        <img class="card-back-symbol" src="https://www.figma.com/api/mcp/asset/561cedff-b25a-49ac-8286-b4ac43495973" alt="">
                     </div>
                     <div class="card-front">
                         <img
