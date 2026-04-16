@@ -1,0 +1,263 @@
+/* ═══════════════════════════════════════════════
+   MEMORYMADE — Start Page
+   ═══════════════════════════════════════════════ */
+
+.start-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn .5s ease both;
+}
+
+/* ── Card ── */
+.start-card {
+    padding: 52px 44px 44px;
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+}
+
+/* ── Logo mark ── */
+.brand {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+/* Outer glow ring */
+.brand-glow-ring {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-glow-ring::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 30px;
+    background: radial-gradient(circle, rgba(245,200,66,.25) 0%, transparent 70%);
+    animation: ringPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+    0%, 100% { opacity: .6; transform: scale(1); }
+    50%       { opacity: 1;  transform: scale(1.06); }
+}
+
+.brand-shield {
+    position: relative;
+    width: 132px;
+    height: 132px;
+    background: linear-gradient(160deg, #FFE870 0%, #F5C842 35%, #C9870A 70%, #8B5506 100%);
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    box-shadow:
+        0 12px 0 #5C3600,
+        0 16px 48px rgba(0,0,0,.75),
+        0 0 60px rgba(245,200,66,.5),
+        inset 0 2px 0 rgba(255,255,255,.38),
+        inset 0 -2px 0 rgba(0,0,0,.2);
+}
+
+/* Inner decorative border */
+.brand-shield::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border: 2px solid rgba(255,255,255,.22);
+    border-radius: 17px;
+}
+
+/* Corner sparkle */
+.brand-shield::after {
+    content: '✦';
+    position: absolute;
+    top: 9px;
+    right: 11px;
+    font-size: .75rem;
+    color: rgba(255,255,255,.45);
+    text-shadow: 0 0 6px rgba(255,255,255,.6);
+}
+
+.brand-shield-mm {
+    font-size: 2.9rem;
+    font-weight: 900;
+    color: #3A1F00;
+    text-shadow:
+        0 2px 0 rgba(255,255,255,.3),
+        0 -1px 0 rgba(0,0,0,.25);
+    letter-spacing: .06em;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.brand-shield-sub {
+    font-size: .52rem;
+    font-weight: 800;
+    color: rgba(58,31,0,.6);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    margin-top: 1px;
+}
+
+/* Wordmark */
+.brand-wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.brand-name {
+    font-size: 1.65rem;
+    font-weight: 900;
+    letter-spacing: .22em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-shadow:
+        0 2px 0 var(--gold-dark),
+        0 0 28px rgba(245,200,66,.6),
+        0 0 60px rgba(245,200,66,.25);
+    line-height: 1;
+}
+
+.brand-tagline {
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: rgba(255,247,230,.65);
+    text-transform: uppercase;
+    text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+
+/* ── Headline ── */
+.headline {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--text);
+    text-shadow: 0 2px 12px rgba(0,0,0,.6);
+    margin-bottom: 10px;
+}
+
+.headline em {
+    color: var(--gold);
+    font-style: normal;
+    text-shadow: var(--glow-gold);
+}
+
+.sub {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* ── Stats pills row ── */
+.start-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(201,168,76,.25);
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-size: .84rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.meta-pill .pill-emoji {
+    font-size: 1.1rem;   /* ~30% bigger than the text */
+    line-height: 1;
+}
+
+/* ── Form ── */
+.form-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.field-label {
+    display: block;
+    font-size: .66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.field-input {
+    width: 100%;
+    padding: 14px 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    background: rgba(255,255,255,.06);
+    border: 2px solid rgba(201,168,76,.25);
+    border-radius: var(--r-md);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    caret-color: var(--gold);
+}
+.field-input::placeholder { color: var(--text-dim); font-weight: 400; }
+.field-input:focus {
+    border-color: var(--gold-border);
+    box-shadow: 0 0 0 3px rgba(var(--gold-rgb), .18), var(--glow-gold);
+    background: rgba(255,255,255,.09);
+}
+
+/* ── Classifica link ── */
+.start-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.link-classifica {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: color .2s;
+}
+.link-classifica:hover { color: var(--gold); }
+
+@media (max-width: 480px) {
+    .start-card { padding: 36px 20px 32px; }
+}
