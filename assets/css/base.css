@@ -61,9 +61,7 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-    background:
-        radial-gradient(ellipse 120% 60% at 50% -10%, rgba(61,26,110,.9) 0%, rgba(46,20,83,.5) 30%, transparent 70%),
-        linear-gradient(180deg, #075F91 0%, #030608 100%);
+    background: linear-gradient(121.94deg, rgb(7, 0, 47) 0%, rgb(26, 105, 165) 101.63%);
     background-attachment: fixed;
     color: var(--text);
     min-height: 100vh;
@@ -73,7 +71,7 @@ body {
 /* ── Ornate Panel ── */
 .panel {
     background: linear-gradient(180deg, #1E8AC6 0%, #130828 100%);
-    border: 2px solid var(--gold-border);
+    border: 2px solid #1f8cc9;
     border-radius: var(--r-xl);
     box-shadow:
         var(--shadow-panel),
@@ -143,17 +141,17 @@ body {
 }
 .btn:disabled { opacity: .35; cursor: not-allowed; }
 
-/* Green CTA — 3D depth */
+/* Blue CTA — 3D depth */
 .btn-play {
-    background: linear-gradient(180deg, #5EE065 0%, #2DB535 55%, #1F8828 100%);
+    background: linear-gradient(180deg, #1F8CC9 0%, #1473A7 55%, #1473A7 100%);
     color: #FFFFFF;
     text-shadow: 0 1px 3px rgba(0,0,0,.4);
-    box-shadow: 0 6px 0 var(--green-shadow), 0 8px 24px rgba(0,0,0,.5);
+    box-shadow: 0 6px 0 #004d77, 0 8px 24px rgba(0,0,0,.5);
 }
 .btn-play:hover:not(:disabled) { filter: brightness(1.08); }
 .btn-play:active:not(:disabled) {
     transform: translateY(5px);
-    box-shadow: 0 1px 0 var(--green-shadow), 0 2px 8px rgba(0,0,0,.4);
+    box-shadow: 0 1px 0 #004d77, 0 2px 8px rgba(0,0,0,.4);
 }
 
 /* Gold secondary */

@@ -7,41 +7,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 32px 24px 56px;
+    padding: 32px 24px;
     animation: fadeIn .5s ease both;
 }
 
 /* ── Card ── */
 .result-card {
-    padding: 48px 44px;
+    padding: 44px 44px 52px;
     width: 100%;
     max-width: 500px;
+    text-align: center;
     animation: scaleIn .5s cubic-bezier(.34,1.2,.64,1) both .1s;
-}
-
-/* ── Brand ── */
-.result-brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 32px;
-}
-/* Brand mark uses shared .brand-mark from base.css */
-.result-brand-mark {
-    width: 33px;
-    height: 33px;
-    border-radius: 7px;
-    box-shadow: 0 3px 0 rgba(0,0,0,.3), inset 0 0.5px 0 rgba(255,255,255,.38), inset 0 -0.5px 0 rgba(0,0,0,.2);
-}
-.result-brand-mark::after { display: none; } /* inner shadow handled above */
-
-.result-brand-name {
-    font-size: .62rem;
-    font-weight: 900;
-    letter-spacing: .22em;
-    color: var(--gold);
-    text-transform: uppercase;
-    text-shadow: var(--glow-gold);
 }
 
 /* ── Stars decoration ── */
@@ -49,7 +25,7 @@
     display: flex;
     justify-content: center;
     gap: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 .result-star {
     font-size: 1.8rem;
@@ -67,12 +43,12 @@
 .result-emoji {
     font-size: 3rem;
     display: block;
-    margin-bottom: 10px;
-    animation: scaleIn .5s cubic-bezier(.34,1.56,.64,1) both .2s;
+    margin-bottom: 8px;
+    animation: scaleIn .5s cubic-bezier(.34,1.56,.64,1) both .15s;
 }
 
 .result-score {
-    font-size: clamp(3rem, 12vw, 5rem);
+    font-size: 5rem;
     font-weight: 900;
     line-height: 1;
     color: var(--gold);
@@ -80,7 +56,7 @@
 }
 .result-score-sub {
     font-size: .78rem;
-    color: var(--text-muted);
+    color: rgba(255,255,255,.85);
     margin-top: 6px;
 }
 .result-player {
@@ -95,7 +71,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    padding: 4px 14px;
+    padding: 4px 15px;
     border-radius: 100px;
     font-size: .68rem;
     font-weight: 700;
@@ -119,7 +95,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 }
 .stat-box {
     background: rgba(255,255,255,.1);
@@ -155,18 +131,19 @@
     font-weight: 500;
     line-height: 1.6;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 /* ── Actions ── */
 .result-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 @media (max-width: 480px) {
     .result-card { padding: 36px 20px 32px; }
     .result-stats { gap: 8px; }
     .stat-box-val { font-size: 1.3rem; }
+    .result-score { font-size: 3.5rem; }
 }

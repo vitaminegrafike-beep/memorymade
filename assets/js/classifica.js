@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════
    MEMORYMADE — Classifica Logic
-   Reads from localStorage, sorted by best time
+   Firebase real-time listener · localStorage fallback
    ═══════════════════════════════════════════════ */
 
 (function () {
@@ -8,11 +8,13 @@
 
     const MEDALS = ['🥇', '🥈', '🥉'];
 
-    function loadBoard() {
-        try { return JSON.parse(localStorage.getItem(CONFIG.leaderboardKey) || '[]'); }
-        catch (e) { return []; }
-    }
+    const list        = document.getElementById('classifica-list');
+    const btnReset    = document.getElementById('btn-reset');
+    const btnBadge    = document.getElementById('btn-badge');
 
+    let currentBoard  = [];   // kept in sync on every render
+
+    /* ── Helpers ── */
     function fmtTime(secs) {
         const m = Math.floor(secs / 60), s = secs % 60;
         return `${m}:${s.toString().padStart(2, '0')}`;
@@ -24,29 +26,31 @@
             .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
-    /* Sort: completed first (fastest duration), then timeout (most matched) */
+    /* Sort: completed first (fewest attempts, then fastest time),
+       then timeout (most matched, then fastest time) */
     function sortBoard(board) {
         return [...board].sort((a, b) => {
-            if (a.status === b.status) {
-                if (a.status === 'completed') return a.duration - b.duration;
-                return b.matched - a.matched;
+            if (a.status !== b.status) return a.status === 'completed' ? -1 : 1;
+            if (a.status === 'completed') {
+                if (a.attempts !== b.attempts) return a.attempts - b.attempts;
+                return a.duration - b.duration;
             }
-            return a.status === 'completed' ? -1 : 1;
+            if (a.matched !== b.matched) return b.matched - a.matched;
+            return a.duration - b.duration;
         });
     }
 
-    function render() {
-        const raw   = loadBoard();
-        const board = sortBoard(raw);
-        const list  = document.getElementById('classifica-list');
+    /* ── Render ── */
+    function renderBoard(entries) {
+        const board = sortBoard(entries);
+        currentBoard = board;   // keep reference for badge export
 
         /* Summary stats */
-        document.getElementById('stat-partite').textContent  = board.length;
+        document.getElementById('stat-partite').textContent = board.length;
         const completed = board.filter(e => e.status === 'completed');
-        document.getElementById('stat-record').textContent   =
+        document.getElementById('stat-record').textContent =
             completed.length ? fmtTime(completed[0].duration) : '—';
-        document.getElementById('stat-completati').textContent =
-            completed.length;
+        document.getElementById('stat-completati').textContent = completed.length;
 
         /* Empty state */
         if (!board.length) {
@@ -83,14 +87,85 @@
         }).join('');
     }
 
-    /* Reset button */
-    document.getElementById('btn-reset').addEventListener('click', () => {
-        if (confirm('Sei sicuro di voler azzerare tutta la classifica? L\'operazione non è reversibile.')) {
-            localStorage.removeItem(CONFIG.leaderboardKey);
-            render();
-        }
-    });
+    /* ════════════════════════════════════════════
+       FIREBASE — real-time listener
+       ════════════════════════════════════════════ */
+    function initFirebase() {
+        try {
+            if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase);
+            const db  = firebase.database();
+            const ref = db.ref('leaderboard');
 
-    render();
+            /* Show live indicator */
+            const liveBadge = document.getElementById('live-badge');
+            if (liveBadge) liveBadge.style.display = 'inline';
+
+            /* Real-time subscription — fires immediately + on every new entry */
+            ref.on('value', snapshot => {
+                const entries = [];
+                snapshot.forEach(child => {
+                    entries.push(child.val());
+                });
+                renderBoard(entries);
+            }, err => {
+                console.warn('Firebase read error, falling back:', err);
+                renderFromLocalStorage();
+            });
+
+            /* Reset — clears Firebase + localStorage */
+            btnReset.addEventListener('click', () => {
+                if (!confirm('Sei sicuro di voler azzerare tutta la classifica?')) return;
+                ref.remove();
+                localStorage.removeItem(CONFIG.leaderboardKey);
+            });
+
+        } catch (e) {
+            console.warn('Firebase init failed, falling back:', e);
+            renderFromLocalStorage();
+            bindResetLocalStorage();
+        }
+    }
+
+    /* ════════════════════════════════════════════
+       LOCALSTORAGE FALLBACK (useFirebase: false)
+       ════════════════════════════════════════════ */
+    function renderFromLocalStorage() {
+        try {
+            const entries = JSON.parse(localStorage.getItem(CONFIG.leaderboardKey) || '[]');
+            renderBoard(entries);
+        } catch (e) {
+            renderBoard([]);
+        }
+    }
+
+    function bindResetLocalStorage() {
+        btnReset.addEventListener('click', () => {
+            if (!confirm('Sei sicuro di voler azzerare tutta la classifica?')) return;
+            localStorage.removeItem(CONFIG.leaderboardKey);
+            renderFromLocalStorage();
+        });
+    }
+
+    /* ── Badge button ── */
+    if (btnBadge) {
+        btnBadge.addEventListener('click', () => {
+            if (!currentBoard.length) return;
+            btnBadge.textContent = '⏳ Generando…';
+            btnBadge.disabled = true;
+            setTimeout(() => {
+                Badge.downloadLeaderboard(currentBoard);
+                btnBadge.textContent = '📸 Salva classifica come immagine';
+                btnBadge.disabled = false;
+            }, 80);
+        });
+    }
+
+    /* ── Init ── */
+    if (CONFIG.useFirebase) {
+        initFirebase();
+    } else {
+        renderFromLocalStorage();
+        bindResetLocalStorage();
+    }
 
 })();

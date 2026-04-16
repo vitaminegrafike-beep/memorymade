@@ -14,9 +14,9 @@
 
 /* ── Card ── */
 .start-card {
-    padding: 46px 44px 44px;
+    padding: 61px 122px 60px;
     width: 100%;
-    max-width: 460px;
+    max-width: 700px;
     text-align: center;
 }
 
@@ -25,11 +25,10 @@
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 32px;
+    gap: 24px;
+    margin-bottom: 53px;
 }
 
-/* Outer glow ring */
 .brand-glow-ring {
     position: relative;
     display: flex;
@@ -37,28 +36,13 @@
     justify-content: center;
 }
 
-.brand-glow-ring::before {
-    content: '';
-    position: absolute;
-    inset: -14px;
-    border-radius: 42px;
-    background: radial-gradient(circle, rgba(255,245,217,.4) 0%, transparent 70%);
-    animation: ringPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes ringPulse {
-    0%, 100% { opacity: .5; transform: scale(1); }
-    50%       { opacity: 1;  transform: scale(1.06); }
-}
-
 /* Large brand mark on start page */
 .brand-mark-lg {
-    width: 132px;
-    height: 132px;
-    border-radius: 28px;
+    width: 106px;
+    height: 106px;
+    border-radius: 22.5px;
     box-shadow:
-        0 16px 48px rgba(133,133,133,.75),
-        0 0 60px rgba(255,245,217,.5),
+        0 0 38.5px rgba(255,255,255,.75),
         inset 0 2px 0 rgba(255,255,255,.38),
         inset 0 -2px 0 rgba(0,0,0,.2);
 }
@@ -77,9 +61,6 @@
     letter-spacing: .207em;
     color: var(--gold);
     text-transform: uppercase;
-    text-shadow:
-        0 0 28px rgba(245,200,66,.6),
-        0 0 60px rgba(245,200,66,.25);
     line-height: 1;
 }
 
@@ -93,12 +74,12 @@
 
 /* ── Headline ── */
 .headline {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-size: 2.2rem;
     font-weight: 900;
     line-height: 1.15;
     color: var(--text);
-    text-shadow: 0 2px 12px rgba(0,0,0,.4);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    white-space: nowrap;
 }
 
 .headline em {
@@ -107,35 +88,40 @@
 }
 
 .sub {
-    font-size: .88rem;
-    color: rgba(255,255,255,.85);
-    line-height: 1.6;
-    margin-bottom: 32px;
+    font-size: 1rem;
+    color: rgba(255,255,255,1);
+    line-height: 1.408;
+    margin-bottom: 31px;
+    max-width: 405px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* ── Stats pills row ── */
+/* ── Stats pills row — single line ── */
 .start-meta {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
+    gap: 12px;
+    margin-bottom: 56px;
+    flex-wrap: nowrap;
 }
 
 .meta-pill {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(201,168,76,.25);
     border-radius: 100px;
-    padding: 7px 14px;
+    padding: 8px 15px;
+    height: 40px;
     font-size: .84rem;
     font-weight: 700;
     color: var(--gold);
     letter-spacing: .04em;
     text-transform: uppercase;
+    white-space: nowrap;
 }
 
 .meta-pill .pill-emoji {
@@ -162,12 +148,13 @@
 .field-input {
     width: 100%;
     padding: 14px 20px;
+    height: 57px;
     font-family: inherit;
     font-size: 1rem;
     font-weight: 500;
     color: var(--text);
     background: rgba(255,255,255,.06);
-    border: 2px solid rgba(201,168,76,.25);
+    border: 2px solid rgba(255,255,255,.25);
     border-radius: var(--r-md);
     outline: none;
     transition: border-color .2s, box-shadow .2s, background .2s;
@@ -175,25 +162,27 @@
 }
 .field-input::placeholder { color: #777; font-weight: 400; }
 .field-input:focus {
-    border-color: var(--gold-border);
-    box-shadow: 0 0 0 3px rgba(var(--gold-rgb), .18), var(--glow-gold);
+    border-color: rgba(255,255,255,.5);
+    box-shadow: 0 0 0 3px rgba(255,255,255,.1);
     background: rgba(255,255,255,.09);
 }
 
 /* ── Classifica link ── */
 .start-footer {
-    margin-top: 16px;
+    margin-top: 23px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 6px;
 }
 
 .link-classifica {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: .78rem;
+    font-size: .88rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: white;
     cursor: pointer;
     background: none;
     border: none;
@@ -203,7 +192,13 @@
 }
 .link-classifica:hover { color: var(--gold); }
 
+@media (max-width: 740px) {
+    .start-card { padding: 48px 32px 40px; max-width: 500px; }
+    .headline { font-size: 1.75rem; white-space: normal; }
+}
+
 @media (max-width: 480px) {
     .start-card { padding: 36px 20px 32px; }
-    .brand-mark-lg { width: 100px; height: 100px; border-radius: 22px; }
+    .start-meta { flex-wrap: wrap; }
+    .brand-mark-lg { width: 86px; height: 86px; border-radius: 18px; }
 }

@@ -15,21 +15,13 @@
 <div class="result-page">
     <div class="result-card panel">
 
-        <!-- Brand -->
-        <div class="result-brand">
-            <div class="brand-mark result-brand-mark">
-                <img src="https://www.figma.com/api/mcp/asset/116f4559-e17a-4e22-b460-7693737fab50" alt="">
-            </div>
-            <span class="result-brand-name">Memorymade</span>
-        </div>
-
         <!-- Stars -->
         <div class="result-stars" id="result-stars"></div>
 
         <!-- Hero -->
         <div class="result-hero">
-            <span class="result-emoji" id="result-emoji">🎉</span>
-            <div class="result-score"     id="result-score">0/24</div>
+            <span class="result-emoji" id="result-emoji">🏆</span>
+            <div class="result-score"     id="result-score">0/18</div>
             <div class="result-score-sub">coppie trovate</div>
             <div class="result-player"    id="result-player"></div>
             <span class="status-badge"    id="status-badge">—</span>
@@ -59,19 +51,19 @@
             <button id="btn-replay" class="btn btn-play btn-full">
                 🔄 Rigioca
             </button>
-            <button id="btn-classifica" class="btn btn-gold btn-full">
-                🏆 Vedi classifica
+            <button id="btn-badge" class="btn btn-gold btn-full">
+                📸 Salva il tuo badge
             </button>
-            <button id="btn-change-player" class="btn btn-ghost btn-full">
-                Cambia giocatore
+            <button id="btn-classifica" class="btn btn-ghost btn-full">
+                🏆 Vedi classifica
             </button>
         </div>
 
     </div>
 </div>
 
-<script>sessionStorage.setItem("memorymadeResult",JSON.stringify({playerName:"Anteprima",duration:87,attempts:22,matched:18,total:24,status:"completed",date:"16/04/2026"}));</script>
 <script src="assets/js/config.js"></script>
+<script src="assets/js/badge.js"></script>
 <script src="assets/js/result.js"></script>
 </body>
 </html>

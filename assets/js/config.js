@@ -6,11 +6,32 @@ const CONFIG = {
     gameDuration:    120,                   // seconds (2 minutes)
     warnAt:          40,                    // timer turns yellow
     dangerAt:        15,                    // timer turns red + pulses
-    flipBackDelay:   700,                   // ms before wrong cards flip back
+    flipBackDelay:   1500,                  // ms before wrong cards flip back (longer = easier to memorize)
+    pairsPerGame:    18,                    // 18 random pairs → 6×6 grid
     sessionKey:      'memorymadeResult',
     playerKey:       'memorymadePlayer',
     leaderboardKey:  'memorymadeLeaderboard',
-    maxLeaderboard:  50,                    // max stored entries
+    maxLeaderboard:  50,                    // max stored entries (localStorage fallback)
+
+    /* ── Firebase Realtime Database ──────────────────────────────────
+       Abilita la classifica condivisa in tempo reale su più dispositivi.
+       1. Vai su https://console.firebase.google.com
+       2. Crea un progetto → Realtime Database → crea database
+       3. Nelle regole del database imposta:
+              { "rules": { ".read": true, ".write": true } }
+       4. Copia qui la configurazione del tuo progetto
+       5. Metti  useFirebase: true
+    ─────────────────────────────────────────────────────────────── */
+    useFirebase: false,
+    firebase: {
+        apiKey:            "YOUR_API_KEY",
+        authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
+        databaseURL:       "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId:         "YOUR_PROJECT_ID",
+        storageBucket:     "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId:             "YOUR_APP_ID",
+    },
 };
 
 /* All colleagues — all 24 are used each game (48 cards total) */

@@ -22,7 +22,10 @@
             </div>
             <div class="classifica-title-wrap">
                 <div class="classifica-title">🏆 Classifica</div>
-                <div class="classifica-sub">Tempi migliori · tutti i giocatori</div>
+                <div class="classifica-sub">
+                    Tempi migliori · tutti i giocatori
+                    <span class="live-badge" id="live-badge" style="display:none">● LIVE</span>
+                </div>
             </div>
         </div>
 
@@ -50,6 +53,9 @@
             <button class="btn btn-play btn-full" onclick="window.location.href='start.html'">
                 🎮 Gioca ora
             </button>
+            <button id="btn-badge" class="btn btn-gold btn-full">
+                📸 Salva classifica come immagine
+            </button>
             <button id="btn-reset" class="btn btn-ghost btn-full">
                 🗑️ Azzera classifica
             </button>
@@ -58,7 +64,10 @@
     </div>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script src="assets/js/config.js"></script>
+<script src="assets/js/badge.js"></script>
 <script src="assets/js/classifica.js"></script>
 </body>
 </html>

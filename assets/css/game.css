@@ -12,7 +12,7 @@
 .loading-overlay {
     position: fixed;
     inset: 0;
-    background: linear-gradient(180deg, #075F91 0%, #030608 100%);
+    background: linear-gradient(121.94deg, rgb(7, 0, 47) 0%, rgb(26, 105, 165) 101.63%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,7 +63,7 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: linear-gradient(180deg, rgba(7,80,120,.98) 0%, rgba(3,10,20,.96) 100%);
+    background: linear-gradient(180deg, rgba(7,0,47,.98) 0%, rgba(26,105,165,.96) 100%);
     border-bottom: 1px solid rgba(201,168,76,.25);
     padding: 0 20px;
     height: 58px;
@@ -177,10 +177,10 @@
 /* ════ Grid ════ */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 9px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
     width: 100%;
-    max-width: 1210px;   /* 1100px +10% → cards ~10% bigger */
+    max-width: min(900px, calc(100dvh - 100px));   /* 15% bigger, fits viewport height */
 }
 
 /* ════ Memory Card ════ */
@@ -213,12 +213,17 @@
     height: 100%;
     aspect-ratio: 1 / 1;
     transform-style: preserve-3d;
-    /* Faster flip + GPU layer for snappy response */
-    transition: transform .3s cubic-bezier(.4, 0, .2, 1),
+    transition: transform .28s cubic-bezier(.4, 0, .2, 1),
                 box-shadow .15s ease;
     border-radius: var(--r-card);
     box-shadow: var(--shadow-card);
     will-change: transform;
+}
+
+/* Slower flip-back so players can memorize the card */
+.memory-card.is-flipping-back .card-inner {
+    transition: transform .65s cubic-bezier(.4, 0, .2, 1),
+                box-shadow .15s ease;
 }
 
 .memory-card.is-flipped .card-inner,
@@ -324,14 +329,14 @@
 }
 
 /* ════ Responsive ════ */
-@media (max-width: 900px) {
-    .game-grid { grid-template-columns: repeat(6, 1fr); gap: 7px; max-width: 700px; }
+@media (max-width: 720px) {
+    .game-grid { gap: 7px; max-width: 560px; }
     .game-brand-name { display: none; }
     .stat-chip-lbl { display: none; }
 }
 
-@media (max-width: 580px) {
-    .game-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 380px; }
+@media (max-width: 480px) {
+    .game-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; max-width: 340px; }
     .stat-chip { padding: 4px 8px; }
     .stat-chip-val { font-size: .85rem; min-width: 20px; }
     .game-main { padding: 14px 10px 24px; }

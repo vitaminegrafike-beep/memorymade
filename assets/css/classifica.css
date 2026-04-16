@@ -5,7 +5,7 @@
 .classifica-page {
     min-height: 100vh;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     padding: 40px 24px 60px;
     animation: fadeIn .5s ease both;
@@ -47,9 +47,20 @@
 }
 
 .classifica-sub {
-    font-size: .72rem;
+    font-size: .875rem;
     color: rgba(255,255,255,.85);
     margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.live-badge {
+    font-size: .6rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    color: #4ADE80;
+    animation: pulse 1.5s ease infinite;
 }
 
 /* ── Stats summary ── */
@@ -88,7 +99,19 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    /* Show exactly 5 items, scroll the rest */
+    max-height: 330px;   /* 5 × ~60px + 4 × 6px gap */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    padding-right: 4px;  /* space for scrollbar */
 }
+
+/* Subtle custom scrollbar */
+.classifica-list::-webkit-scrollbar       { width: 4px; }
+.classifica-list::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 100px; }
+.classifica-list::-webkit-scrollbar-thumb { background: rgba(201,168,76,.35); border-radius: 100px; }
+.classifica-list::-webkit-scrollbar-thumb:hover { background: rgba(201,168,76,.6); }
 
 .classifica-item {
     display: flex;
@@ -173,14 +196,14 @@
     padding: 48px 0 32px;
     color: var(--text-muted);
 }
-.classifica-empty-icon { font-size: 2.8rem; display: block; margin-bottom: 12px; }
+.classifica-empty-icon { font-size: 5rem; display: block; margin-bottom: 16px; }
 .classifica-empty-text { font-size: .9rem; line-height: 1.6; color: #c9c7cc; }
 
 /* ── Actions ── */
 .classifica-actions {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
 }
 
 /* ── Responsive ── */

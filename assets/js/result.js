@@ -83,10 +83,23 @@
         window.location.href = 'classifica.html';
     });
 
-    document.getElementById('btn-change-player').addEventListener('click', () => {
-        sessionStorage.removeItem(CONFIG.playerKey);
-        sessionStorage.removeItem(CONFIG.sessionKey);
-        window.location.href = 'start.html';
+    document.getElementById('btn-badge').addEventListener('click', function () {
+        this.textContent = '⏳ Generando…';
+        this.disabled = true;
+        const self = this;
+        setTimeout(() => {
+            Badge.downloadResult({
+                name:     playerName,
+                duration: duration,
+                attempts: attempts,
+                matched:  matched,
+                total:    total,
+                status:   status,
+                date:     result.date || new Date().toLocaleDateString('it-IT'),
+            });
+            self.textContent = '📸 Salva il tuo badge';
+            self.disabled = false;
+        }, 80);
     });
 
     render();
