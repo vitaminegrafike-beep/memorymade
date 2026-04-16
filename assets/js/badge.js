@@ -1,27 +1,65 @@
 /* ═══════════════════════════════════════════════
    MEMORYMADE — Badge Generator
    Pixel-accurate reproduction of Figma node 41:210
-   Canvas size: 596 × 380 logical px (always 2× DPR output)
+   Trophy rendered as embedded SVG (no CORS issues)
+   Output: exactly 600 × 369 px  (DPR = 1)
    ═══════════════════════════════════════════════ */
 
 const Badge = (function () {
     'use strict';
 
-    /* ── Fixed output dimensions ── */
+    /* ── Output size (fixed) ── */
     const W = 600, H = 369;
 
-    /* ── Tokens ── */
+    /* ── Design tokens ── */
     const GOLD  = '#F5C842';
     const WHITE = '#FFF7E6';
 
+    /* ── Trophy SVG — embedded, no external request, no CORS ──
+       Matches the Figma image 6 (48 × 48 px gold trophy cup)    */
+    const TROPHY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="tg" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%"   stop-color="#FFE566"/>
+      <stop offset="55%"  stop-color="#F5C842"/>
+      <stop offset="100%" stop-color="#C9840A"/>
+    </linearGradient>
+    <linearGradient id="ts" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#B87310"/>
+      <stop offset="100%" stop-color="#D4960F"/>
+    </linearGradient>
+  </defs>
+  <!-- Cup bowl -->
+  <path d="M26 8 H74 V10 H26 Z" fill="url(#tg)"/>
+  <path d="M28 10 C28 10 26 46 50 56 C74 46 72 10 72 10 Z" fill="url(#tg)"/>
+  <!-- Left handle -->
+  <path d="M28 12 C16 12 10 20 10 30 C10 40 18 46 28 48 L28 12 Z" fill="url(#ts)"/>
+  <!-- Right handle -->
+  <path d="M72 12 C84 12 90 20 90 30 C90 40 82 46 72 48 L72 12 Z" fill="url(#ts)"/>
+  <!-- Stem -->
+  <rect x="44" y="56" width="12" height="16" fill="url(#tg)"/>
+  <!-- Platform top -->
+  <rect x="30" y="72" width="40" height="8" rx="3" fill="url(#tg)"/>
+  <!-- Platform base -->
+  <rect x="24" y="80" width="52" height="9" rx="3" fill="url(#ts)"/>
+  <!-- Shine -->
+  <ellipse cx="38" cy="24" rx="5" ry="9" fill="rgba(255,255,255,0.22)" transform="rotate(-15 38 24)"/>
+</svg>`;
+
+    const TROPHY_URI = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(TROPHY_SVG);
+
+    /* Preload trophy at module init — data URIs are synchronous */
+    const _trophy = new Image();
+    _trophy.src = TROPHY_URI;
+
+    /* ── Helpers ── */
     function fmtTime(secs) {
         const m = Math.floor(secs / 60), s = secs % 60;
         return `${m}:${s.toString().padStart(2, '0')}`;
     }
 
-    /* Always render at 2× for crisp PNG output */
     function makeCanvas() {
-        const DPR = 2;
+        const DPR = 1;
         const c   = document.createElement('canvas');
         c.width   = W * DPR;
         c.height  = H * DPR;
@@ -30,7 +68,6 @@ const Badge = (function () {
         return { canvas: c, ctx };
     }
 
-    /* Rounded rect path (manual — broad browser support) */
     function rrect(ctx, x, y, w, h, r) {
         ctx.beginPath();
         ctx.moveTo(x + r, y);
@@ -45,7 +82,6 @@ const Badge = (function () {
         ctx.closePath();
     }
 
-    /* Truncate text to fit maxWidth */
     function truncate(ctx, text, maxW) {
         if (ctx.measureText(text).width <= maxW) return text;
         while (text.length > 1 && ctx.measureText(text + '…').width > maxW) {
@@ -55,107 +91,106 @@ const Badge = (function () {
     }
 
     /* ════════════════════════════════════════════
-       DRAW BADGE
-       Matches Figma node 41:210 exactly
+       DRAW  —  Figma node 41:210, scaled to 600×369
+       Figma source: 596 × 380  →  scale ≈ 1.006 h / 0.97 v
+       We work directly in target coordinates.
        ════════════════════════════════════════════ */
     function drawBadge(entry) {
         const { canvas, ctx } = makeCanvas();
 
-        /* ── 1. Background: vertical gradient #1e8ac6 → #130828 ── */
+        /* 1 ── Background gradient (top → bottom: #1e8ac6 → #130828) */
         const bg = ctx.createLinearGradient(0, 0, 0, H);
         bg.addColorStop(0, '#1e8ac6');
         bg.addColorStop(1, '#130828');
-
         rrect(ctx, 0, 0, W, H, 28);
         ctx.fillStyle = bg;
         ctx.fill();
 
-        /* ── 2. Border: 2px #1f8cc9 ── */
+        /* 2 ── Border 2px #1f8cc9 */
         ctx.strokeStyle = '#1f8cc9';
-        ctx.lineWidth = 2;
+        ctx.lineWidth   = 2;
         ctx.stroke();
 
-        /* ── 3. Inner highlight: inset 0 1px 0 rgba(255,255,255,.06) ── */
+        /* 3 ── Inner highlight */
         rrect(ctx, 1, 1, W - 2, H - 2, 27);
         ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth   = 1;
         ctx.stroke();
 
-        /* ── 4. Trophy emoji ──
-           Container: left 36, top 48, width 516, flex-col gap-20 items-center
-           Emoji font-size 48px → baseline ≈ top + lineHeight (57.6px) × 0.85 ≈ 97 */
-        ctx.font      = '48px serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('🏆', W / 2, 97);
+        /* 4 ── Trophy image  (Figma: 48×48, centered in left-36 w-516 → cx=294)
+                Scale x: 600/596 ≈ 1.007  →  cx ≈ 296  top ≈ 47 */
+        const trophySize = 48;
+        const trophyCX   = W / 2;   // centred horizontally
+        const trophyTop  = 47;
+        if (_trophy.complete && _trophy.naturalWidth > 0) {
+            ctx.drawImage(
+                _trophy,
+                trophyCX - trophySize / 2, trophyTop,
+                trophySize, trophySize
+            );
+        }
 
-        /* ── 5. "THE WINNER IS" ──
-           After emoji (height ~57.6) + gap 20 → top ≈ 125.6
-           Font 18px Poppins Black, white, tracking 0.896px, uppercase
-           Baseline ≈ 125.6 + 18 × 0.82 ≈ 141 */
+        /* 5 ── "THE WINNER IS"
+                Figma: top of text block = trophyTop + 48 + gap-20 = 115
+                font 18px Black, white, tracking ~0.05em  */
         ctx.font      = '900 18px Poppins, sans-serif';
         ctx.fillStyle = WHITE;
         ctx.textAlign = 'center';
-        /* Simulate letter-spacing 0.896px by spacing manually */
-        ctx.fillText('THE WINNER IS', W / 2, 141);
+        ctx.fillText('THE WINNER IS', trophyCX, trophyTop + 48 + 20 + 16);
+        /* baseline ≈ 47 + 48 + 20 + 16 = 131 */
 
-        /* ── 6. Player name ──
-           Container: left 65, top 180, w 500, h 49
-           p element: top-[-9px] → absolute top 171
-           font-size 35.2px, gold, text-center
-           Baseline ≈ 171 + 35.2 × 0.82 ≈ 200 */
+        /* 6 ── Player name
+                Figma: container top 180, p offset top-[-9px] → abs top 171
+                font 35.2px Black, gold
+                Scale v: 369/380 ≈ 0.971  →  top ≈ 166  baseline ≈ 166 + 28 = 194 */
         ctx.font      = '900 35.2px Poppins, sans-serif';
         ctx.fillStyle = GOLD;
         ctx.textAlign = 'center';
-        const name    = truncate(ctx, entry.name || '—', 490);
-        ctx.fillText(name, W / 2, 200);
+        ctx.fillText(truncate(ctx, entry.name || '—', 490), W / 2, 194);
 
-        /* ── 7. Stat boxes ──
-           Container: left 40, top 252, width 516, height 72
-           Each box: width 165.328px, gap 10px
-           Box positions: x = 40, 215.33, 390.66 */
-        const boxW   = 165.328;
-        const boxGap = 10;
-        const boxTop = 252;
-        const boxH   = 72;
-        const boxX   = [40, 40 + boxW + boxGap, 40 + 2 * (boxW + boxGap)];
+        /* 7 ── Stat boxes
+                Figma: left 40, top 252, w 516, h 72, each box 165.33px, gap 10px
+                Scale h: left → 40*(600/596)≈40  top → 252*(369/380)≈245
+                Box height 72*(369/380)≈70 */
+        const BX  = 40,  BY  = 245;
+        const BW  = (W - BX * 2 - 20) / 3;   // ≈ 160px each
+        const BH  = 70,  GAP = 10;
 
+        const accuracy = entry.total > 0 ? Math.round(entry.matched / entry.total * 100) : 0;
         const stats = [
-            { val: fmtTime(entry.duration),              lbl: 'TEMPO'     },
-            { val: String(entry.attempts),               lbl: 'TENTATIVI' },
-            { val: `${entry.matched}/${entry.total}`,    lbl: 'COMPLETATE'},
+            { val: fmtTime(entry.duration),           lbl: 'TEMPO'      },
+            { val: String(entry.attempts),             lbl: 'TENTATIVI'  },
+            { val: `${entry.matched}/${entry.total}`,  lbl: 'COMPLETATE' },
         ];
 
         stats.forEach((s, i) => {
-            const x = boxX[i];
+            const x = BX + i * (BW + GAP);
 
-            /* Box background + border */
-            rrect(ctx, x, boxTop, boxW, boxH, 14);
+            /* Box */
+            rrect(ctx, x, BY, BW, BH, 14);
             ctx.fillStyle   = 'rgba(255,255,255,0.1)';
             ctx.fill();
             ctx.strokeStyle = 'rgba(201,168,76,0.18)';
             ctx.lineWidth   = 1;
             ctx.stroke();
 
-            /* Value: pt-15px, font 24px Black, gold, centered
-               Baseline ≈ boxTop + 15 + 24 × 0.82 ≈ boxTop + 35 */
+            /* Value  —  pt-15 inside box, font 24px, baseline ≈ BY+34 */
             ctx.font      = '900 24px Poppins, sans-serif';
             ctx.fillStyle = GOLD;
             ctx.textAlign = 'center';
-            ctx.fillText(s.val, x + boxW / 2, boxTop + 35);
+            ctx.fillText(s.val, x + BW / 2, BY + 34);
 
-            /* Label: font 9.6px Bold, white, uppercase, tracking 0.864px
-               gap-[4px] after value div (h-24px) → label top ≈ boxTop + 15 + 24 + 4 = boxTop + 43
-               Baseline ≈ boxTop + 43 + 9.6 × 0.82 ≈ boxTop + 51 */
+            /* Label  —  gap-4 below value div (h-24), font 9.6px, baseline ≈ BY+54 */
             ctx.font      = '700 9.6px Poppins, sans-serif';
             ctx.fillStyle = WHITE;
             ctx.textAlign = 'center';
-            ctx.fillText(s.lbl, x + boxW / 2, boxTop + 54);
+            ctx.fillText(s.lbl, x + BW / 2, BY + 53);
         });
 
         return canvas;
     }
 
-    /* ── Download as PNG ── */
+    /* ── Download ── */
     function download(canvas, filename) {
         canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob);
@@ -171,15 +206,12 @@ const Badge = (function () {
 
     /* ── Public API ── */
     return {
-        /* Individual result badge — uses the player's session data */
         downloadResult(entry) {
             document.fonts.ready.then(() => {
                 const safe = (entry.name || 'badge').replace(/\s+/g, '-').toLowerCase();
                 download(drawBadge(entry), `memorymade-${safe}.png`);
             });
         },
-
-        /* Leaderboard badge — uses the #1 ranked player */
         downloadLeaderboard(board) {
             if (!board.length) return;
             document.fonts.ready.then(() => {
